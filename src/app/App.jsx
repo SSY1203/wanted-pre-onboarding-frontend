@@ -9,7 +9,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { navContext } from './../context/isActive';
 
 function App() {
-  const [isActive, setIsActive] = useState('');
+  const lastActive = localStorage.getItem('nav');
+  const [isActive, setIsActive] = useState(lastActive ? lastActive : '');
 
   const value = { isActive, setIsActive };
 

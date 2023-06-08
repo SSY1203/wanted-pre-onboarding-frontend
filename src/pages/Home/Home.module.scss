@@ -1,0 +1,32 @@
+@import '../../styles/color';
+@import '../../styles/size';
+
+.homeContainer {
+  height: 100%;
+  padding: 0 44px;
+  position: relative;
+
+  .homeTitle {
+    font-weight: 600;
+    padding-top: 20%;
+
+    .homeSubTitle {
+      font-size: $subHeader;
+      color: $gray300;
+    }
+
+    .homeMainTitle {
+      font-size: $header;
+      color: $black;
+    }
+  }
+
+  .name {
+    font-weight: 600;
+    font-size: $subHeader;
+    color: $black;
+    position: absolute;
+    bottom: 20%;
+    right: 44px;
+  }
+}

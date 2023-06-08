@@ -1,0 +1,32 @@
+@import '../../styles/color';
+@import '../../styles/size';
+
+.navContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  height: 65px;
+
+  display: flex;
+  justify-content: space-around;
+
+  border-top: 1px solid $gray100;
+
+  .navButton {
+    width: 100%;
+    background-color: $white;
+    border: none;
+
+    font-size: $nav;
+    font-weight: 600;
+    color: $black;
+    cursor: pointer;
+  }
+
+  .isActive {
+    color: $secondary;
+    border-top: 5px solid $primary;
+  }
+}

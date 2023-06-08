@@ -1,21 +1,24 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useResolvedPath } from 'react-router-dom';
 import styles from './Nav.module.scss';
 import { navContext } from '../../context/isActive';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 const Nav = ({ navData }) => {
   const navigation = useNavigate();
+  const lastState = useResolvedPath();
 
   const { isActive, setIsActive } = useContext(navContext);
 
-  const onUpdateNav = async (path) => {
-    const state = await path.slice(1, undefined);
-    state === 'signin'
-      ? setIsActive('signin')
-      : state === 'signup'
-      ? setIsActive('signup')
-      : setIsActive('');
-    await localStorage.setItem('nav', isActive);
+  useEffect(() => {
+    localStorage.setItem('nav', JSON.stringify(lastState.pathname));
+  }, [lastState.pathname]);
+
+  const onUpdateNav = (path) => {
+    path === '/signin'
+      ? setIsActive('/signin')
+      : path === '/signup'
+      ? setIsActive('/signup')
+      : setIsActive('/');
 
     navigation(path);
   };
@@ -25,7 +28,7 @@ const Nav = ({ navData }) => {
       {navData.map((item, idx) => (
         <button
           className={`${styles.navButton} ${
-            item.path === `/${isActive}` ? styles.isActive : ''
+            item.path === `${isActive}` ? styles.isActive : ''
           }`}
           key={idx}
           onClick={() => onUpdateNav(item.path)}

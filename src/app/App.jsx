@@ -1,16 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Home from './../pages/Home/Home';
 import LogOut from './../pages/LogOut';
 import SignIn from './../pages/SignIn/SignIn';
 import SignUp from '../pages/SignUp/SignUp';
 import ToDo from './../pages/ToDo';
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useResolvedPath,
+} from 'react-router-dom';
 import { navContext } from './../context/isActive';
 
 function App() {
-  const lastActive = localStorage.getItem('nav');
-  const [isActive, setIsActive] = useState(lastActive ? lastActive : '');
+  const path = JSON.parse(localStorage.getItem('nav'));
+  const [isActive, setIsActive] = useState(path);
+
+  useEffect(() => {
+    setIsActive(path);
+  }, [path]);
 
   const value = { isActive, setIsActive };
 

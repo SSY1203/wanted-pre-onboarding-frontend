@@ -14,11 +14,23 @@ const Nav = ({ navData }) => {
   }, [lastState.pathname]);
 
   const onUpdateNav = (path) => {
-    path === '/signin'
-      ? setIsActive('/signin')
-      : path === '/signup'
-      ? setIsActive('/signup')
-      : setIsActive('/');
+    switch (path) {
+      case '/signin':
+        setIsActive('/signin');
+        break;
+      case '/signup':
+        setIsActive('/signin');
+        break;
+      case '/todo':
+        setIsActive('/signin');
+        break;
+      case '/logout':
+        setIsActive('/signin');
+        break;
+      default:
+        setIsActive('/');
+        break;
+    }
 
     navigation(path);
   };

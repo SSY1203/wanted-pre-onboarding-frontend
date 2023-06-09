@@ -10,7 +10,7 @@ const SignIn = () => {
 
   useEffect(() => {
     const currentUser = localStorage.getItem('JWT');
-    if (currentUser) currentUser && navigate('/todo');
+    if (currentUser) navigate('/todo');
   }, []);
 
   const [email, setEmail] = useState('');

@@ -9,7 +9,7 @@ const Home = () => {
 
   useEffect(() => {
     const currentUser = localStorage.getItem('JWT');
-    if (currentUser) currentUser && navigate('/todo');
+    if (currentUser) navigate('/todo');
   }, []);
   return (
     <div className={styles.homeContainer}>

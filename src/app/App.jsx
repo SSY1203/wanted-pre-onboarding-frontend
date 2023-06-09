@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import Home from './../pages/Home/Home';
-import LogOut from './../pages/LogOut';
+import LogOut from './../pages/LogOut/LogOut';
 import SignIn from './../pages/Sign/SignIn';
 import SignUp from '../pages/Sign/SignUp';
-import ToDo from './../pages/ToDo';
+import ToDo from './../pages/ToDo/ToDo';
 import './App.css';
 import {
   BrowserRouter,

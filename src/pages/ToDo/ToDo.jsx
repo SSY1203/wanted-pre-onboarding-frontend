@@ -3,6 +3,9 @@ import Nav from '../../components/Nav/Nav';
 import { toDoNavData } from '../../data/navData';
 import { useEffect, useState } from 'react';
 import styles from './ToDo.module.scss';
+import { ReactComponent as Edit } from '../../assets/edit.svg';
+import { ReactComponent as Delete } from '../../assets/delete.svg';
+import classNames from 'classnames';
 
 const ToDo = () => {
   const navigate = useNavigate();
@@ -147,15 +150,16 @@ const ToDo = () => {
 
   return (
     <div className={styles.toDoContainer}>
-      <h2 className={styles.toDoDate}>
-        {year}년 {month}월 {day}일
-      </h2>
+      <span className={styles.toDoDate}>
+        {month}月 {day}日
+      </span>
       <div className={styles.toDoInput}>
         <input
           data-testid="new-todo-input"
           onChange={onChangeToDo}
           value={toDo}
           className={styles.input}
+          placeholder="오늘의 할 일을 입력해주세요"
           type="text"
         />
         <button
@@ -168,7 +172,7 @@ const ToDo = () => {
       </div>
       <ul className={styles.toDoListBox}>
         {Array.from(toDoList).map((todo, idx) => (
-          <li key={todo.id}>
+          <li className={styles.toDoItemBox} key={todo.id}>
             <label>
               <input
                 type="checkbox"
@@ -180,6 +184,7 @@ const ToDo = () => {
               {isEdit && todo.id === currentToDo ? (
                 <>
                   <input
+                    className={styles.editToDoInput}
                     data-testid="modify-input"
                     type="text"
                     value={editToDo}
@@ -187,41 +192,51 @@ const ToDo = () => {
                   />
                 </>
               ) : (
-                <span>{todo.todo}</span>
+                <span className={styles.toDoText}>{todo.todo}</span>
               )}
             </label>
             {isEdit && todo.id === currentToDo ? (
-              <>
+              <div className={styles.toDoButtonList}>
                 <button
+                  className={classNames(
+                    styles.toDoButton,
+                    styles.todoEditButton
+                  )}
                   onClick={() =>
                     onUpdateToDos(todo.id, todo.todo, todo.isCompleted)
                   }
                   data-testid="submit-button"
                 >
-                  제출
+                  SAVE
                 </button>
                 <button
+                  className={classNames(
+                    styles.toDoButton,
+                    styles.todoCancelButton
+                  )}
                   onClick={() => onToggleToDo(todo.id, todo.todo)}
                   data-testid="cancel-button"
                 >
-                  취소
+                  CANCEL
                 </button>
-              </>
+              </div>
             ) : (
-              <>
+              <div className={styles.toDoButtonList}>
                 <button
+                  className={styles.toDoButton}
                   onClick={() => onToggleToDo(todo.id, todo.todo)}
                   data-testid="modify-button"
                 >
-                  수정
+                  <Edit />
                 </button>
                 <button
+                  className={styles.toDoButton}
                   onClick={() => onDeleteToDo(todo.id)}
                   data-testid="delete-button"
                 >
-                  삭제
+                  <Delete />
                 </button>
-              </>
+              </div>
             )}
           </li>
         ))}

@@ -1,0 +1,81 @@
+@import '../../styles/color';
+@import '../../styles/size';
+
+.toDoContainer {
+  padding: 0 40px;
+  padding-top: 100px;
+
+  .toDoDate {
+    font-size: 50px;
+    font-weight: 800;
+  }
+
+  .toDoInput {
+    margin-top: 80px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
+
+    .input {
+      width: 300px;
+      border: 1px solid $gray100;
+      border-radius: 5px;
+      padding: 20px;
+    }
+
+    .addButton {
+      padding: 18px 13px;
+      background-color: $primary;
+      border: none;
+      border-radius: 5px;
+      color: $white;
+      font-size: $basic;
+      font-weight: 700;
+    }
+  }
+
+  .toDoListBox {
+    list-style: none;
+    padding: 0;
+
+    .toDoItemBox {
+      margin: 20px 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .toDoText {
+        margin-left: 10px;
+        font-size: $basic;
+        font-weight: 800;
+      }
+      .editToDoInput {
+        height: 30px;
+        margin-left: 10px;
+        font-size: $basic;
+        font-weight: 800;
+        border: 1px solid $gray100;
+        border-radius: 5px;
+      }
+
+      .toDoButtonList {
+        display: flex;
+        align-items: center;
+
+        .toDoButton {
+          background-color: transparent;
+          border: none;
+          font-size: $input;
+          font-weight: 600;
+        }
+
+        .todoEditButton {
+          color: $secondary;
+        }
+
+        .todoCancelButton {
+          color: $gray300;
+        }
+      }
+    }
+  }
+}

@@ -1,11 +1,9 @@
-import styles from './SignUp.module.scss';
-import Nav from './../../components/Nav/Nav';
-import { homeNavData } from './../../data/navData';
+import styles from './Sign.module.scss';
+import Nav from '../../components/Nav/Nav';
+import { homeNavData } from '../../data/navData';
 import { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
-axios.defaults.withCredentials = true;
+import classNames from 'classnames';
 
 const SignUp = () => {
   const navigation = useNavigate();
@@ -65,10 +63,11 @@ const SignUp = () => {
           body: JSON.stringify({ email: email, password: password }),
         }
       ).then((res) => {
-        alert('회원가입 성공했습니다!');
-        if (res.status === 201) {
+        if (res.status === 200) {
+          alert('회원가입 성공했습니다!');
           navigation('/signin');
         }
+        alert('아이디 또는 비밀번호가 존재합니다!');
       });
     } catch (error) {
       console.error('회원가입 실패 : ' + error);
@@ -76,23 +75,36 @@ const SignUp = () => {
   };
 
   return (
-    <div className={styles.signUpContainer}>
-      <form onSubmit={onSubmit}>
-        <span>회원가입</span>
-        <div className={styles.emailBox}>
-          <label htmlFor="email">Email</label>
+    <div className={styles.signContainer}>
+      <form className={styles.formBox} onSubmit={onSubmit}>
+        <span className={styles.formTitle}>회원가입</span>
+        <div className={styles.inputBox}>
+          <label className={styles.inputLabel} htmlFor="email">
+            Email
+          </label>
           <input
+            className={styles.input}
             onChange={onChangeEmail}
             value={email}
             id="email"
             type="email"
             data-testid="email-input"
           />
-          {email.length > 0 && <span>{emailMsg}</span>}
-        </div>
-        <div className={styles.passwordBox}>
-          <label htmlFor="password">Password</label>
+          {email.length > 0 && (
+            <span
+              className={classNames(
+                styles.inputComment,
+                isEmail && styles.correctComment
+              )}
+            >
+              {emailMsg}
+            </span>
+          )}
+          <label className={styles.inputLabel} htmlFor="password">
+            Password
+          </label>
           <input
+            className={styles.input}
             onChange={onChangePassword}
             value={password}
             id="password"
@@ -100,9 +112,25 @@ const SignUp = () => {
             minLength={8}
             data-testid="password-input"
           />
-          {password.length > 0 && <span>{passwordMsg}</span>}
+          {password.length > 0 && (
+            <span
+              className={classNames(
+                styles.inputComment,
+                isPassword && styles.correctComment
+              )}
+            >
+              {passwordMsg}
+            </span>
+          )}
         </div>
-        <button disabled={!(isEmail & isPassword)} data-testid="signup-button">
+        <button
+          className={classNames(
+            styles.formButton,
+            !(isEmail & isPassword) && styles.diabledButton
+          )}
+          disabled={!(isEmail & isPassword)}
+          data-testid="signup-button"
+        >
           SIGN UP
         </button>
       </form>

@@ -1,0 +1,69 @@
+@import '../../styles/color';
+@import '../../styles/size';
+
+.signContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .formBox {
+    width: 400px;
+    height: 430px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    .formTitle {
+      font-size: $title;
+      font-weight: 600;
+    }
+
+    .inputBox {
+      display: flex;
+      flex-direction: column;
+
+      .inputLabel {
+        font-size: $input;
+        font-weight: 600;
+        margin-top: 10px;
+        margin-bottom: 7px;
+        color: $basic;
+      }
+
+      .input {
+        border: 1px solid $gray100;
+        border-radius: 5px;
+        padding: 20px;
+      }
+
+      .inputComment {
+        font-size: 14px;
+        font-weight: 600;
+        color: #cd5151;
+        margin-top: 3px;
+      }
+
+      .correctComment {
+        color: #65ba57;
+        font-size: 14px;
+        font-weight: 600;
+        margin-top: 3px;
+      }
+    }
+    .formButton {
+      padding: 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: $basic;
+      font-weight: 700;
+      color: $white;
+      background-color: $primary;
+    }
+
+    .diabledButton {
+      background-color: $gray200;
+    }
+  }
+}

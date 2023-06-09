@@ -1,8 +1,9 @@
-import styles from './SignIn.module.scss';
-import Nav from './../../components/Nav/Nav';
-import { homeNavData } from './../../data/navData';
+import styles from './Sign.module.scss';
+import Nav from '../../components/Nav/Nav';
+import { homeNavData } from '../../data/navData';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import classNames from 'classnames';
 
 const SignIn = () => {
   const navigation = useNavigate();
@@ -71,22 +72,36 @@ const SignIn = () => {
   };
 
   return (
-    <div className={styles.signInContainer}>
-      <form onSubmit={onSubmit}>
-        <span>로그인</span>
-        <div className={styles.emailBox}>
-          <label htmlFor="email">Email</label>
+    <div className={styles.signContainer}>
+      <form className={styles.formBox} onSubmit={onSubmit}>
+        <span className={styles.formTitle}>로그인</span>
+        <div className={styles.inputBox}>
+          <label className={styles.inputLabel} htmlFor="email">
+            Email
+          </label>
           <input
+            className={styles.input}
             onChange={onChangeEmail}
             value={email}
             id="email"
             type="email"
             data-testid="email-input"
           />
-        </div>
-        <div className={styles.passwordBox}>
-          <label htmlFor="password">Password</label>
+          {email.length > 0 && (
+            <span
+              className={classNames(
+                styles.inputComment,
+                isEmail && styles.correctComment
+              )}
+            >
+              {emailMsg}
+            </span>
+          )}
+          <label className={styles.inputLabel} htmlFor="password">
+            Password
+          </label>
           <input
+            className={styles.input}
             onChange={onChangePassword}
             value={password}
             id="password"
@@ -94,8 +109,25 @@ const SignIn = () => {
             minLength={8}
             data-testid="password-input"
           />
+          {password.length > 0 && (
+            <span
+              className={classNames(
+                styles.inputComment,
+                isPassword && styles.correctComment
+              )}
+            >
+              {passwordMsg}
+            </span>
+          )}
         </div>
-        <button disabled={!(isEmail & isPassword)} data-testid="signin-button">
+        <button
+          className={classNames(
+            styles.formButton,
+            !(isEmail & isPassword) && styles.diabledButton
+          )}
+          disabled={!(isEmail & isPassword)}
+          data-testid="signin-button"
+        >
           LOGIN
         </button>
       </form>

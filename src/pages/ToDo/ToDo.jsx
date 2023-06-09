@@ -15,6 +15,11 @@ const ToDo = () => {
   const [toDo, setToDo] = useState('');
   const [toDoList, setToDoList] = useState([]);
 
+  const [editToDo, setEditToDo] = useState('');
+  const [isEdit, setIsEdit] = useState(false);
+
+  const [currentToDo, setCurrentToDo] = useState('');
+
   const access_token = localStorage.getItem('JWT');
 
   useEffect(() => {
@@ -77,9 +82,18 @@ const ToDo = () => {
     }
   };
 
-  const onEditToDo = () => {};
+  const onToggleToDo = (id, todo) => {
+    setCurrentToDo(id);
+    toDoList.forEach((item) => {
+      if (id === item.id) {
+        setEditToDo(todo);
+      }
+    });
+    setIsEdit((state) => !state);
+  };
 
   const onUpdateToDos = async (id, todo, state) => {
+    setIsEdit(false);
     try {
       const response = await fetch(
         `https://www.pre-onboarding-selection-task.shop/todos/${id}`,
@@ -90,7 +104,7 @@ const ToDo = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            todo: todo,
+            todo: isEdit ? editToDo : todo,
             isCompleted: !state,
           }),
         }
@@ -98,11 +112,10 @@ const ToDo = () => {
       const newToDo = await response.json();
       const newToDoList = toDoList.map((item) => ({
         ...item,
-        todo: item.id === id ? todo : item.todo,
+        todo: item.id === id ? (isEdit ? editToDo : todo) : item.todo,
         isCompleted: item.id === id ? !state : item.isCompleted,
       }));
 
-      console.log(newToDoList);
       if (response.status === 200) {
         setToDoList(newToDoList);
         onGetToDos();
@@ -164,17 +177,52 @@ const ToDo = () => {
                   onUpdateToDos(todo.id, todo.todo, todo.isCompleted)
                 }
               />
-              <span>{todo.todo}</span>
+              {isEdit && todo.id === currentToDo ? (
+                <>
+                  <input
+                    data-testid="modify-input"
+                    type="text"
+                    value={editToDo}
+                    onChange={(e) => setEditToDo(e.target.value)}
+                  />
+                </>
+              ) : (
+                <span>{todo.todo}</span>
+              )}
             </label>
-            <button onClick={onEditToDo} data-testid="modify-button">
-              <img src="../../assets/edit.svg" />
-            </button>
-            <button
-              onClick={() => onDeleteToDo(todo.id)}
-              data-testid="delete-button"
-            >
-              <img src="../../assets/delete.svg" />
-            </button>
+            {isEdit && todo.id === currentToDo ? (
+              <>
+                <button
+                  onClick={() =>
+                    onUpdateToDos(todo.id, todo.todo, todo.isCompleted)
+                  }
+                  data-testid="submit-button"
+                >
+                  제출
+                </button>
+                <button
+                  onClick={() => onToggleToDo(todo.id, todo.todo)}
+                  data-testid="cancel-button"
+                >
+                  취소
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => onToggleToDo(todo.id, todo.todo)}
+                  data-testid="modify-button"
+                >
+                  수정
+                </button>
+                <button
+                  onClick={() => onDeleteToDo(todo.id)}
+                  data-testid="delete-button"
+                >
+                  삭제
+                </button>
+              </>
+            )}
           </li>
         ))}
       </ul>

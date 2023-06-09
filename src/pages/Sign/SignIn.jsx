@@ -2,11 +2,16 @@ import styles from './Sign.module.scss';
 import Nav from '../../components/Nav/Nav';
 import { homeNavData } from '../../data/navData';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 const SignIn = () => {
-  const navigation = useNavigate();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const currentUser = localStorage.getItem('JWT');
+    if (currentUser) currentUser && navigate('/todo');
+  }, []);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -62,9 +67,9 @@ const SignIn = () => {
       );
       const json = await response.json();
       alert('로그인 성공!');
-      if (response.status === 201) {
+      if (response.status === 200) {
         await localStorage.setItem('JWT', json.access_token);
-        navigation('/todo');
+        navigate('/todo');
       }
     } catch (error) {
       console.error('로그인 실패 : ' + error);

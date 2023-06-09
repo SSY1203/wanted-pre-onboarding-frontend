@@ -1,12 +1,17 @@
 import styles from './Sign.module.scss';
 import Nav from '../../components/Nav/Nav';
 import { homeNavData } from '../../data/navData';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 
 const SignUp = () => {
-  const navigation = useNavigate();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const currentUser = localStorage.getItem('JWT');
+    if (currentUser) currentUser && navigate('/todo');
+  }, []);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -63,9 +68,9 @@ const SignUp = () => {
           body: JSON.stringify({ email: email, password: password }),
         }
       ).then((res) => {
-        if (res.status === 200) {
+        if (res.status === 201) {
           alert('회원가입 성공했습니다!');
-          navigation('/signin');
+          navigate('/signin');
         }
         alert('아이디 또는 비밀번호가 존재합니다!');
       });

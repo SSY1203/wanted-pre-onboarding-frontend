@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import styles from './Home.module.scss';
 import Nav from '../../components/Nav/Nav';
 import { homeNavData } from '../../data/navData';
-import styles from './Home.module.scss';
-import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const navigate = useNavigate();

@@ -1,10 +1,12 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import styles from './ToDo.module.scss';
 import Nav from '../../components/Nav/Nav';
 import { toDoNavData } from '../../data/navData';
-import { useEffect, useState } from 'react';
-import styles from './ToDo.module.scss';
 import { ReactComponent as Edit } from '../../assets/edit.svg';
 import { ReactComponent as Delete } from '../../assets/delete.svg';
+
 import classNames from 'classnames';
 
 const ToDo = () => {

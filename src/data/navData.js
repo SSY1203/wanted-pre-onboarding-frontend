@@ -17,11 +17,9 @@ export const toDoNavData = [
   {
     path: '/todo',
     text: 'To Do List',
-    isSelected: true,
   },
   {
     path: '/logout',
     text: 'Log Out',
-    isSelected: false,
   },
 ];

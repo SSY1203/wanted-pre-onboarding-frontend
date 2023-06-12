@@ -2,7 +2,7 @@ import styles from './Sign.module.scss';
 import Nav from '../../components/Nav/Nav';
 import { homeNavData } from '../../data/navData';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import classNames from 'classnames';
 
 const SignIn = () => {
@@ -13,43 +13,47 @@ const SignIn = () => {
     if (currentUser) navigate('/todo');
   }, []);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [inputState, setInputState] = useState({ email: '', password: '' });
+  const { email, password } = inputState;
 
-  const [emailMsg, setEmailMsg] = useState('');
-  const [passwordMsg, setPasswordMsg] = useState('');
+  const [inputMsg, setInputMsg] = useState({ emailMsg: '', passwordMsg: '' });
+  const { emailMsg, passwordMsg } = inputMsg;
 
-  const [isEmail, setIsEmail] = useState(false);
-  const [isPassword, setIsPassword] = useState(false);
+  const [isValidation, setIsValidation] = useState({
+    isEmail: false,
+    isPassword: false,
+  });
+  const { isEmail, isPassword } = isValidation;
 
-  const onChangeEmail = (e) => {
+  const onChangeInput = (e) => {
+    const name = e.target.name;
+    const currentValue = e.target.value;
     const emailRegex =
       /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-    const currentEmail = e.target.value;
-
-    setEmail(currentEmail);
-
-    if (!emailRegex.test(currentEmail) || currentEmail.length === 0) {
-      setIsEmail(false);
-      setEmailMsg('이메일 형식이 틀렸습니다! 다시 확인해주세요.');
-    } else {
-      setEmailMsg('올바른 이메일 형식입니다.');
-      setIsEmail(true);
-    }
-  };
-
-  const onChangePassword = (e) => {
     const passwordRegex = /.{8,}/;
-    const currentPassword = e.target.value;
 
-    setPassword(currentPassword);
-
-    if (!passwordRegex.test(currentPassword) || currentPassword.length === 0) {
-      setIsPassword(false);
-      setPasswordMsg('8자리 이상 입력해주세요!');
+    if (name === 'email') {
+      setInputState({ ...inputState, email: currentValue });
+      if (!emailRegex.test(currentValue) || currentValue.length === 0) {
+        setIsValidation({ ...isValidation, isEmail: false });
+        setInputMsg({
+          ...inputMsg,
+          emailMsg: '이메일 형식이 틀렸습니다! 다시 확인해주세요.',
+        });
+      } else {
+        setInputMsg({ ...inputMsg, emailMsg: '올바른 이메일 형식입니다.' });
+        setIsValidation({ ...isValidation, isEmail: true });
+      }
     } else {
-      setPasswordMsg('안전한 비밀번호입니다.');
-      setIsPassword(true);
+      setInputState({ ...inputState, password: currentValue });
+
+      if (!passwordRegex.test(currentValue) || currentValue.length === 0) {
+        setIsValidation({ ...isValidation, isPassword: false });
+        setInputMsg({ ...inputMsg, passwordMsg: '8자리 이상 입력해주세요!' });
+      } else {
+        setInputMsg({ ...inputMsg, passwordMsg: '안전한 비밀번호입니다.' });
+        setIsValidation({ ...isValidation, isPassword: true });
+      }
     }
   };
 
@@ -85,8 +89,9 @@ const SignIn = () => {
             Email
           </label>
           <input
+            name="email"
             className={styles.input}
-            onChange={onChangeEmail}
+            onChange={onChangeInput}
             value={email}
             id="email"
             type="email"
@@ -106,8 +111,9 @@ const SignIn = () => {
             Password
           </label>
           <input
+            name="password"
             className={styles.input}
-            onChange={onChangePassword}
+            onChange={onChangeInput}
             value={password}
             id="password"
             type="password"

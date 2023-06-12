@@ -5,13 +5,7 @@ import SignIn from './../pages/Sign/SignIn';
 import SignUp from '../pages/Sign/SignUp';
 import ToDo from './../pages/ToDo/ToDo';
 import './App.css';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useResolvedPath,
-  useNavigate,
-} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import { navContext } from './../context/isActive';
 
 function App() {

@@ -28,7 +28,6 @@ const ToDo = () => {
   useEffect(() => {
     const currentUser = localStorage.getItem('JWT');
     if (!currentUser) navigate('/');
-
     onGetToDos();
   }, []);
 

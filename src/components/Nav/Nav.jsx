@@ -11,27 +11,11 @@ const Nav = ({ navData }) => {
 
   useEffect(() => {
     localStorage.setItem('nav', JSON.stringify(lastState.pathname));
-  }, [lastState.pathname]);
+    onUpdateNav(lastState.pathname);
+  }, [lastState]);
 
   const onUpdateNav = (path) => {
-    switch (path) {
-      case '/signin':
-        setIsActive('/signin');
-        break;
-      case '/signup':
-        setIsActive('/signin');
-        break;
-      case '/todo':
-        setIsActive('/signin');
-        break;
-      case '/logout':
-        setIsActive('/signin');
-        break;
-      default:
-        setIsActive('/');
-        break;
-    }
-
+    setIsActive(path);
     navigation(path);
   };
 

@@ -10,6 +10,7 @@ import {
   Routes,
   Route,
   useResolvedPath,
+  useNavigate,
 } from 'react-router-dom';
 import { navContext } from './../context/isActive';
 
@@ -26,7 +27,7 @@ function App() {
   return (
     <div className="App">
       <navContext.Provider value={value}>
-        <BrowserRouter basename="/">
+        <BrowserRouter basename={'/'}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/signin" element={<SignIn />} />

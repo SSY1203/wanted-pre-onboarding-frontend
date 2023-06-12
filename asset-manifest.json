@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/wanted-pre-onboarding-frontend/static/css/main.bea0442c.css",
-    "main.js": "/wanted-pre-onboarding-frontend/static/js/main.f430a563.js",
-    "static/media/edit.svg": "/wanted-pre-onboarding-frontend/static/media/edit.fe40288648eb04dbfda6397b92fe5fbf.svg",
-    "static/media/delete.svg": "/wanted-pre-onboarding-frontend/static/media/delete.5e69a241f71394f29da4543fdd9cfabe.svg",
-    "index.html": "/wanted-pre-onboarding-frontend/index.html",
-    "main.bea0442c.css.map": "/wanted-pre-onboarding-frontend/static/css/main.bea0442c.css.map",
-    "main.f430a563.js.map": "/wanted-pre-onboarding-frontend/static/js/main.f430a563.js.map"
+    "main.css": "/static/css/main.bea0442c.css",
+    "main.js": "/static/js/main.297c3ee8.js",
+    "static/media/edit.svg": "/static/media/edit.fe40288648eb04dbfda6397b92fe5fbf.svg",
+    "static/media/delete.svg": "/static/media/delete.5e69a241f71394f29da4543fdd9cfabe.svg",
+    "index.html": "/index.html",
+    "main.bea0442c.css.map": "/static/css/main.bea0442c.css.map",
+    "main.297c3ee8.js.map": "/static/js/main.297c3ee8.js.map"
   },
   "entrypoints": [
     "static/css/main.bea0442c.css",
-    "static/js/main.f430a563.js"
+    "static/js/main.297c3ee8.js"
   ]
 }

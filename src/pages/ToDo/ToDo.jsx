@@ -107,7 +107,7 @@ const ToDo = () => {
           },
           body: JSON.stringify({
             todo: isEdit ? editToDo : todo,
-            isCompleted: !state,
+            isCompleted: !isEdit ? !state : state,
           }),
         }
       );
